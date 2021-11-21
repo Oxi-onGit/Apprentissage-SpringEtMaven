@@ -1,20 +1,35 @@
 package com.microservice.microservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//Comme l'annotation @JsonIgnore l'annotation @JsonIgnoreProperties est là pour donner une indication à
+// Jackson (une des LIB de Spring) pour qu'il ne tienne pas compte de certaine propriété
+//@JsonIgnoreProperties(value = {"prixAchat","id"})
+
+
+//Permet de filtrer les propriétés avec des conditions dynamiques
+@JsonFilter("monFiltreDynamique")
 public class Product
 {
     private int id;
     private String nom;
     private int prix;
 
-    public Product()
-    {
-    }
+    //info priver
+    //L'annotation @JsonIgnore permet d'ignorer la propriété en dessous de l'annotation
+    //@JsonIgnore
+    private int prixAchat;
 
-    public Product(int id, String nom, int prix)
+    public Product() {}
+
+    public Product(int id, String nom, int prix,int prixAchat)
     {
         this.id = id;
         this.nom = nom;
         this.prix = prix;
+        this.prixAchat = prixAchat;
     }
 
     public int getId()
@@ -47,11 +62,19 @@ public class Product
         this.prix = prix;
     }
 
-    /*
-        pour retourner les donnée du produit en Json grace a Jackson qui est une LIB contenue dans Spring
+    public int getPrixAchat() {
+        return prixAchat;
+    }
 
-        rapel  @Override singifie au compilateur que l'on réécrite le méthode
-     */
+    public void setPrixAchat(int prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+
+    /*
+      pour retourner les donnée du produit en Json grace a Jackson qui est une LIB contenue dans Spring
+
+      rapel  @Override singifie au compilateur que l'on réécrite le méthode
+    */
     @Override
     public String toString()
     {
