@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.microservice.microservice.dao.ProductDao;
 import com.microservice.microservice.model.Product;
 import com.microservice.microservice.web.exceptions.ProduitIntrouvableException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import java.net.URI;
 import java.util.List;
 
@@ -64,6 +65,8 @@ public class ProductController
 
     //(@GetMapping)Même utilité que @RequestMapping mais directement pour GET
     //(@PathVariable) Permet que Spring de récupère le paramètre dans L’URI
+    //(@ApiOperation)définis une description pour chaque opération /méthode
+    @ApiOperation(value = "Récupère un produit grâce à son ID à condition que celui-ci soit en stock!")
     @GetMapping(value = "/Produits/{id}")
     public Product afficherUnProduit(@PathVariable int id)
     {
