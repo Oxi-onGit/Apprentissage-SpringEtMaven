@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 //@Repository indique à Spring qu'il s'agit d'une class qui gère les données
 @Repository
 public class ProductDaoImpl implements ProductDao
@@ -47,3 +47,4 @@ public class ProductDaoImpl implements ProductDao
         return product;
     }
 }
+*/

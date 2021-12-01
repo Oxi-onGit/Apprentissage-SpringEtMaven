@@ -1,6 +1,14 @@
 package com.microservice.microservice.model;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+//import com.fasterxml.jackson.annotation.JsonFilter;
+
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Min;
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -8,13 +16,23 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 // Jackson (une des LIB de Spring) pour qu'il ne tienne pas compte de certaine propriété
 //@JsonIgnoreProperties(value = {"prixAchat","id"})
 
-
 //Permet de filtrer les propriétés avec des conditions dynamiques
-@JsonFilter("monFiltreDynamique")
+//@JsonFilter("monFiltreDynamique")
+
+//Cette annotation fait de cette class une entité pour JPA
+@Entity
 public class Product
 {
+    //l'annotation Id fais de la propriété id est reconnue comme id par JPA
+    // et @GeneratedValue permet de génère un id à chaque création
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    //(@Length)l'annotation permet de vérifier la longueur de nom
+    @Length(min=3, max=20,message = "Nom trop long ou trop court")
     private String nom;
+    //(@Min)l'annotation permet de vérifier que prix est au minimum égale à 1
+    @Min(value = 1,message = "le prix mini est 1")
     private int prix;
 
     //info priver
