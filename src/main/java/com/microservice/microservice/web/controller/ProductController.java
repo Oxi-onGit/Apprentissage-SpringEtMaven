@@ -5,16 +5,15 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.microservice.microservice.dao.ProductDao;
 import com.microservice.microservice.model.Product;
 import com.microservice.microservice.web.exceptions.ProduitIntrouvableException;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -149,5 +148,23 @@ public class ProductController
     public List<Product> chercherUnProduitCher(@PathVariable int prix)
     {
        return productDao.chercherUnProduitCher(prix);
+    }
+
+    //--------------------- Début tuto libre ---------------------
+
+    //Cette méthode récupère la liste des produits dans la BDD,
+    // calcul la marge pour chaque produit et revoie une List de String
+    @GetMapping(value = "/AdminProduits")
+    public List<String> calculerMargeProduit()
+    {
+        List<String> result = new ArrayList<>();
+        List<Product> products = productDao.findAll();
+        int calcul;
+        for (int i = 0; i < products.size(); i++)
+        {
+            calcul = products.get(i).getPrix()- products.get(i).getPrixAchat();
+            result.add(products.get(i).toString() +":"+calcul);
+        }
+        return result;
     }
 }
