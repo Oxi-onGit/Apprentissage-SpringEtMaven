@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.microservice.microservice.dao.ProductDao;
 import com.microservice.microservice.model.Product;
+import com.microservice.microservice.web.exceptions.ProduitGratuitException;
 import com.microservice.microservice.web.exceptions.ProduitIntrouvableException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,8 +102,17 @@ public class ProductController
     //ResponseEntity hérite de HttpEntity pour permettre de personnaliser personnaliser le code html à retourner
     //(@Valid)Permet de vérifier qui qui le produit passer en paramètre est valide
     @PostMapping(value = "/Produits")
-    public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product)
+    public ResponseEntity<Void> ajouterProduit(/*@Valid*/ @RequestBody Product product)
     {
+        //--------------------- Début tuto libre ---------------------
+
+        if(product.getPrix() ==0 || product.getPrix() > 0)
+        {
+            throw new ProduitGratuitException("Le produit ne peut pas être gratuit");
+        }
+
+        //--------------------- Fin tuto libre ---------------------
+
        //La méthode Save fait partie des méthodes de SpringData donc même sans l'implémentation crée la méthode fonctionne
        Product productAdded = productDao.save(product);
 
