@@ -167,4 +167,10 @@ public class ProductController
         }
         return result;
     }
+
+    @GetMapping(value = "/ProduitsTrier")
+    public List<Product> trierProduitsParOrdreAlphabetique()
+    {
+        return productDao.findAllByOrderByNom();
+    }
 }

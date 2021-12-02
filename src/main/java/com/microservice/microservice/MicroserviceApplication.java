@@ -33,8 +33,8 @@ public class MicroserviceApplication
     }
 
 }
-/*
 
+/*
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
     @ExceptionHandler(BdsServiceException.class)
@@ -43,5 +43,4 @@ public class ExceptionHandlerAdvice {
         return ResponseEntity.status(e.getHttpStatus()).body(e.getMessage());
     }
 }
-
 */

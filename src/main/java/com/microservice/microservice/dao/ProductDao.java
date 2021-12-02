@@ -34,6 +34,10 @@ public interface ProductDao extends JpaRepository<Product, Integer>
     //L'annotation @Query permet de créer des requête custom
     @Query("SELECT id, nom, prix FROM Product p WHERE p.prix > :prix")
     List<Product> chercherUnProduitCher(@Param("prix") int prixLimit);
+
+    //--------------------- Début tuto libre ---------------------
+    //Comme son nom l'indique cette méthode retour tous les produits trier par leur nom
+    List<Product> findAllByOrderByNom();
 }
 
 
