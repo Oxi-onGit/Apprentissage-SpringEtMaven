@@ -8,9 +8,11 @@ import com.microservice.microservice.web.exceptions.ProduitGratuitException;
 import com.microservice.microservice.web.exceptions.ProduitIntrouvableException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
@@ -102,15 +104,15 @@ public class ProductController
     //ResponseEntity hérite de HttpEntity pour permettre de personnaliser personnaliser le code html à retourner
     //(@Valid)Permet de vérifier qui qui le produit passer en paramètre est valide
     @PostMapping(value = "/Produits")
-    public ResponseEntity<Void> ajouterProduit(/*@Valid*/ @RequestBody Product product)
+    public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product)
     {
         //--------------------- Début tuto libre ---------------------
-
-        if(product.getPrix() ==0 || product.getPrix() > 0)
+/*
+        if(product.getPrix() ==0 || product.getPrix() < 0)
         {
             throw new ProduitGratuitException("Le produit ne peut pas être gratuit");
         }
-
+*/
         //--------------------- Fin tuto libre ---------------------
 
        //La méthode Save fait partie des méthodes de SpringData donc même sans l'implémentation crée la méthode fonctionne
@@ -178,6 +180,7 @@ public class ProductController
         return result;
     }
 
+    //Retourne la List des produit tier dans l’ordre alphabétique
     @GetMapping(value = "/ProduitsTrier")
     public List<Product> trierProduitsParOrdreAlphabetique()
     {

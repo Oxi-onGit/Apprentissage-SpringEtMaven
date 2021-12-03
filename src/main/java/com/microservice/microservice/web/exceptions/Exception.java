@@ -2,16 +2,16 @@ package com.microservice.microservice.web.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class ProduitGratuitException extends Exception
+public class Exception extends RuntimeException
 {
-    public ProduitGratuitException(String s)
+
+    public Exception(String s)
     {
         super(s);
     }
 
-    @Override
     public HttpStatus getHttpStatus()
     {
-        return HttpStatus.BAD_REQUEST;
+        return null;
     }
 }

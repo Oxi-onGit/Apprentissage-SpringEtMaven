@@ -33,14 +33,3 @@ public class MicroserviceApplication
     }
 
 }
-
-/*
-@ControllerAdvice
-public class ExceptionHandlerAdvice {
-    @ExceptionHandler(BdsServiceException.class)
-    public ResponseEntity handleException(BdsServiceException e) {
-        // log exception
-        return ResponseEntity.status(e.getHttpStatus()).body(e.getMessage());
-    }
-}
-*/
